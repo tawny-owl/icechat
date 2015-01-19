@@ -1,0 +1,29 @@
+{
+  "name": "IceComm_Bower",
+  "authors": [
+    "Alex Zai <azai91@gmail.com>"
+  ],
+  "keywords": [
+    "webrtc",
+    "socketio"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/tawny-owl/IceComm_Bower",
+  "_release": "71530529e4",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "71530529e4521db1f3634d34c67bea8c81060c71"
+  },
+  "_source": "git://github.com/tawny-owl/IceComm_Bower.git",
+  "_target": "*",
+  "_originalSource": "icecomm",
+  "_direct": true
+}

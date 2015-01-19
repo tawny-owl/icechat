@@ -1,0 +1,19 @@
+{
+  "name": "IceComm_Bower",
+  "version": "0.0.9",
+  "authors": [
+    "Alex Zai <azai91@gmail.com>"
+  ],
+  "keywords": [
+    "webrtc",
+    "socketio"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
