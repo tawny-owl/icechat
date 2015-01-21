@@ -16,11 +16,11 @@
     "tests"
   ],
   "homepage": "https://github.com/tawny-owl/IceComm_Bower",
-  "_release": "71530529e4",
+  "_release": "ad5e78d527",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "71530529e4521db1f3634d34c67bea8c81060c71"
+    "commit": "ad5e78d527c4c43a143260ae2dc9f13b40abfaf8"
   },
   "_source": "git://github.com/tawny-owl/IceComm_Bower.git",
   "_target": "*",
