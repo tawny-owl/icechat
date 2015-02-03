@@ -4,8 +4,7 @@
   <title>wadup world</title>
   <!-- <script type="text/javascript" src="http://cdn.icecomm.io/icecomm.js"></script> -->
   <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="https://cdntest.icecomm.io/icecomm.js"></script>
-  <!-- <script type="text/javascript" src="http://localhost:8000/icecomm.js"></script> -->
+  <script type="text/javascript" src="https://cdn.icecomm.io/icecomm.js"></script>
 </head>
 <body>
   <div class="colorful box">
@@ -13,15 +12,12 @@
   </div>
 </body>
   <script>
+    var comm = new Icecomm('xZDcFtBFAlhw3uk5X4OPu5u2CUTkyHkMIH9xVxsRU8LFwoUgW');
 
-    var comm = new Icecomm('Tgg57s99bS5ySMSFXxuQYOUPeeBOEO90oAMEaS2IwS85sroOq', {debug: true});
-
-    // var isStream = confirm("do you want to stream");
-
-    comm.connect('room');
+    comm.connect(window.location.pathname);
 
     comm.on('connected', function(options) {
-      document.getElementsByClassName('colorful box')[0].appendChild(options.video)
+      document.getElementsByClassName('colorful box')[0].appendChild(options.video);
     });
 
     comm.on('local', function(options) {
