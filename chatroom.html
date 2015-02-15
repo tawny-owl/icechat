@@ -1,0 +1,127 @@
+<div class="center jumbotron">
+<!-- <script type="text/javascript" src="http://cdn.icecomm.io/icecomm.js"></script> -->
+<script type="text/javascript" src="https://cdn-test.icecomm.io/icecomm.js"></script>
+<!-- <script type="text/javascript" src="https://localhost:8080/icecomm.js"></script> -->
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <h1>Icecomm Chat Demo</h1>
+
+<div class='container'>
+<div id = 'video-chat-body'>
+  <video id="localVideo" autoplay></video>
+</div>
+  <div class='row'>
+    <div class='panel panel-primary'>
+      <div class='panel-heading'>
+        Chat
+      </div>
+      <div class='panel-body' id='js-chat-body'></div>
+    </div>
+    <br>
+    <div class='input-group'>
+      <input class='form-control' id='js-input-im'>
+      <span class='input-group-btn'>
+        <button class='btn btn-primary' id='js-send-button-im'>
+          Send
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+#js-chat-body {
+  max-height: 500px;
+  overflow: auto;
+}
+
+  video {
+    height: 200px;
+    width: 200px;
+}
+
+</style>
+
+
+<script>
+    var comm = new Icecomm('W1wEohGRPQ1IHrUPufpdfTKzcmIFEgSxYftPhY/WMpHHA36');
+
+    comm.connect(window.location.pathname);
+
+    comm.on('local', function(options) {
+      localVideo.src = options.stream;
+      // localVideo.id = comm.getLocalID();
+      // alert(window.location.pathname);
+    });
+
+    comm.on('connected', function(options) {
+      // append video elements one after the other when new people join the chat
+      document.getElementById("video-chat-body").appendChild(options.video);
+
+    });
+
+    comm.on('disconnect', function(options) {
+      document.getElementById(options.callerID).remove();
+      console.log(comm.getRoomSize());
+
+    });
+    comm.on('data', function(options) {
+      console.log("data: ",options.data);
+    });
+
+   comm.on('data',appendNewIM);
+
+  var $sendButton = $("#js-send-button-im");
+  var $inputIM    = $("#js-input-im");
+  var $chatBody   = $("#js-chat-body");
+  var clientOptions;
+
+  $sendButton.on('click', sendIM);
+  $inputIM.on('keypress', checkEnterKey);
+
+  // send a message
+  function sendIM() {
+    var content = "<%= current_user.name %>" + "@@@" + $inputIM.val() ;
+    $inputIM.val("");
+    comm.send(content);
+    // append what you send to your own page
+    appendNewIM({
+    data: content,
+    callerID: "<%= current_user.name %>"
+});
+  }
+
+  // click the send button when enter key is pressed
+  function checkEnterKey(event) {
+    if ( event.keyCode == 13 ) {
+      $sendButton.click();
+    }
+  }
+
+  // append new instant message onto the chat body
+  function appendNewIM(options) {
+    console.log("attempting to append");
+    var message_data = options.data.split("@@@");
+    var caller_name = message_data[0];
+    message_data.reverse();
+    message_data.pop();
+    message_data.reverse();
+    message_data.join("@@@");
+    $chatBody.prepend(mediaObjectIM(caller_name, message_data));
+  }
+
+  // media object to append to the page each time there's a new chat
+  function mediaObjectIM(user, message) {
+
+    var leftRight = user === comm.getLocalID() ? 'right' : 'left';
+    return "  <div class='media'>"+
+           "    <a class='pull-"+ "left" +"' href='#'>"+
+           "      <img class='media-object' src='http://icons.iconarchive.com/icons/icons8/windows-8/48/Animals-Giraffe-icon.png'>"+
+           "    </a>"+
+           "    <div class='media-body', style='text-align: "+ "left" +"'>"+
+           "      <h4 class='media-heading'>"+ user + ": " + message + "</h4>"+""+
+           "    </div>"+
+           "  </div>"
+  }
+
+</script>
