@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var config = require('config');
+var morgan = require('morgan');
+
+app.use(morgan('combined'));
 
 app.get('/style.css', function(req, res) {
   res.sendFile(__dirname + '/style.css');
