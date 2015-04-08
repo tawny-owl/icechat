@@ -1,6 +1,6 @@
 var plan = require('flightplan');
 
-var appName = 'icechat';
+var appName = 'icechat1';
 var username = 'azai91';
 var startFile = 'server.js';
 
@@ -9,7 +9,7 @@ var tmpDir = appName+'-' + new Date().getTime();
 // configuration
 plan.target('staging', [
   {
-    host: 'icechat.cloudapp.net',
+    host: 'icechat1.cloudapp.net',
     username: username,
     agent: process.env.SSH_AUTH_SOCK
   }
@@ -17,7 +17,7 @@ plan.target('staging', [
 
 plan.target('production', [
   {
-    host: 'icechat.cloudapp.net',
+    host: 'icechat1.cloudapp.net',
     username: username,
     agent: process.env.SSH_AUTH_SOCK
   },
