@@ -3,7 +3,7 @@
 <head>
   <title>wadup world</title>
   <!-- <script type="text/javascript" src="http://cdn-stag.icecomm.io/icecomm.js"></script> -->
-  <link rel="stylesheet" href="./client/styles/style.css">
+  <!-- <link rel="stylesheet" href="client/styles/style.css"> -->
   <!-- <script type="text/javascript" src="http://cdn.icecomm.io/icecomm.min.js"></script> -->
   <script type="text/javascript" src="http://localhost:8008/icecomm.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -20,130 +20,6 @@
     <button id='sendButton'>Send</button>
   </form>
 </body>
-  <script>
-    var comm = new Icecomm('3kB4PpZaNNFN4r3xhmOVgcPn2D8rzcOTtQFh4gRwmAsaGTPwlm', {debug: true});
-
-    function connect(room) {
-      comm.connect(room, {audio: false}, testMethods);
-    }
-
-    connect(window.location.pathname);
-
-    if (comm.getLocalID()) {
-      console.log('getLocalID should not change anything');
-    }
-
-    comm.on('connected', function(options) {
-      var remote = options.getVideo();
-      remote.setAttribute('class', 'remote');
-      document.getElementsByClassName('colorful box')[0].appendChild(remote);
-    });
-
-    comm.on('local', function(options) {
-      console.log('local called');
-      document.getElementsByClassName('colorful box')[0].appendChild(options.getVideo());
-    });
-
-    comm.on('global_connect', function(options) {
-      console.log('somebody joined', options);
-      testCaller(options);
-    });
-
-    comm.on('global_disconnect', function(options) {
-      console.log('somebody left', options);
-      testCaller(options);
-    });
-
-    comm.on('data', function(options) {
-      $('#textarea').append(options.data);
-    });
-
-    comm.on('disconnect', function(options) {
-      console.log(options.callerID);
-      document.getElementById(options.callerID).remove();
-      testCaller(options);
-      console.log('domain');
-      console.log(comm.getDomain());
-      console.log(comm.getRoomSize());
-      // testMethods();
-    });
-
-    function testCaller(options) {
-      var passed = true;
-      if (!options.callerID) {
-        passed = false;
-        console.log('error with options.callerID');
-      }
-      if (!options.ID) {
-        passed = false;
-        console.log('error with options.callerID');
-      }
-      if (!options.joined_at) {
-        passed = false;
-        console.log('error with options joined at');
-      }
-      if (passed) {
-        console.log('all test passed');
-      }
-    }
-
-    function testMethods() {
-      var passed = true;
-      if (!comm.getLocalID()) {
-        passed = false;
-        console.log('error with getLocalID');
-      }
-      if (!comm.getRoomSize() || isNaN(comm.getRoomSize())) {
-        passed = false;
-        console.log('error with getRoomSize');
-      }
-      if (!comm.getDomain()) {
-        passed = false;
-        console.log('error with getDomain');
-      }
-      if (!comm.getRemoteIDs()) {
-        passed = false;
-        console.log('error with getRemoteIDs');
-      }
-      if (!comm.getRooms()) {
-        passed = false;
-        console.log('error with getRooms');
-      }
-      if (passed) {
-        console.log('all test passed');
-      }
-    }
-
-    $(document).on('ready', function() {
-      $('#testMethods').on('click', function() {
-        testMethods();
-      });
-
-      $('#sendButton').on('click', function(e) {
-        e.preventDefault();
-        var message = $('#sendInput').val();
-        if (message) {
-          comm.send(message);
-          $('#textarea').append(message);
-        }
-      });
-
-      $('#changeRoom').on('click', function(e) {
-        e.preventDefault();
-        connect('room');
-      });
-
-      $('body').on('click', '.remote', function() {
-        if (!$(this)[0].muted) {
-          console.log('muting');
-          $(this)[0].muted = true;
-          $(this).addClass('muted');
-        } else {
-          $(this)[0].muted = false;
-          $(this).removeClass('muted');
-        }
-      });
-    })
-
-  </script>
+  <script type="text/javascript" src='client/js/main.js'></script>
+  <script type="text/javascript" src='client/js/tests.js'></script>
 </html>
